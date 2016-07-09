@@ -1,0 +1,29 @@
+.top5 { margin-top:5px }
+.top10 { margin-top:10px }
+.top20 { margin-top:20px }
+
+body.home {
+    background: url('../IMG_0891.JPG') no-repeat;
+    background-size:100% auto;
+}
+
+
+td,th {
+    padding: 5px;
+}
+
+th.name {
+    width: 80px;
+}
+
+th.date {
+    width: 100px;
+}
+
+.display-none {
+    display: none;
+}
+
+label.inline {
+    width:80px;
+}
