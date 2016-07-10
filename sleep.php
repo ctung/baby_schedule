@@ -34,9 +34,10 @@
 			<label class="inline" for="location" >Location </label>
 			<div>
 			    <label class="radio-inline"><input type="radio" name="location" value="Crib" checked="checked"> Crib</label>
-			    <label class="radio-inline"><input type="radio" name="location" value="RockNPlay"> RockNPlay</label>
+			    <label class="radio-inline"><input type="radio" name="location" value="RockNPlay"> RNPlay</label>
 			    <label class="radio-inline"><input type="radio" name="location" value="Bjorn"> Bjorn</label>
 			    <label class="radio-inline"><input type="radio" name="location" value="Swing"> Swing</label>
+			    <label class="radio-inline"><input type="radio" name="location" value="Held"> Held</label>
 			</div>
 		    </div>
 		</div>

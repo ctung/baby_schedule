@@ -1,17 +1,29 @@
 <?php
 require_once('connectvars.php');
 
+$date = date('Y-m-d');
+if (isset($_GET['date'])) $date = $_GET['date'];
+
 try {
     $dbh = new PDO('mysql:host=localhost;dbname='. DBNAME, USER, PASS);
     $sth = $dbh->prepare("SELECT eid, name, TIME_FORMAT(start,'%h:%i %p') starttime FROM event
                                   INNER JOIN baby USING (bid) INNER JOIN type USING (tid)
                                   WHERE type='poop' AND DATE(start) = :date ORDER BY start");
-    $sth->bindParam(':date',date('Y-m-d'));
+    $sth->bindParam(':date',$date);
     $sth->execute();
     while($row = $sth->fetch()) {
 	$data[$row['name']][$row['starttime']] = $row;
 	$totals[$row['name']] += 1;
     }
+
+    $sth = $dbh->prepare("SELECT name, COUNT(*) sum, DATE(start) date FROM event
+                          INNER JOIN baby USING (bid) INNER JOIN type USING (tid)
+                          WHERE type='poop' GROUP BY name,date ORDER BY date DESC LIMIT 7");
+    $sth->execute();
+    while($row = $sth->fetch()) 
+	$daily[$row['date']][$row['name']] = $row;
+
+    
     $sth = null;
     $dbh = null;
 } catch (PDOException $e) {
@@ -24,6 +36,7 @@ try {
     
     <?php foreach ($data as $name => $bdata) { ?>
 	<div class="container top20">
+	    <label><?php echo $date ?></label>
 	    <table class="table-bordered">
 		<thead>
 		    <tr>
@@ -55,3 +68,25 @@ try {
     <?php } ?>
 </form>
 
+<div class="container top20">
+    <table class="table-bordered">
+	<thead>
+	    <tr>
+		<th class="date">Date</th>
+		<th>Charlotte</th>
+		<th>Sophia</th>
+	    </tr>
+	</thead>
+	<tbody>
+	    <?php foreach ($daily as $bdate => $bdata) { ?>
+		<?php $url = $_SERVER['PHP_SELF']."?date=$bdate"; ?>
+		<tr>
+		    <td><?php echo "<a href='$url'>$bdate</a>"; ?></td>
+		    <td><?php echo "<a href='$url'>".$bdata['Charlotte']['sum']."</a>"; ?></td>
+			<td><?php echo "<a href='$url'>".$bdata['Sophia']['sum']."</a>"; ?></td>
+		</tr>
+	    <?php } ?>
+	</tbody>
+    </table>
+</div>
+    
