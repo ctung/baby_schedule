@@ -18,7 +18,7 @@ try {
 
     $sth = $dbh->prepare("SELECT name, SUM(qnty) sum, DATE(start) date FROM event
                           INNER JOIN baby USING (bid) INNER JOIN type USING (tid)
-                          WHERE type='feed' GROUP BY name,date ORDER BY date DESC LIMIT 7");
+                          WHERE type='feed' GROUP BY name,date ORDER BY date DESC LIMIT 14");
     $sth->execute();
     while($row = $sth->fetch()) 
 	$daily[$row['date']][$row['name']] = $row;

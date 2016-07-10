@@ -10,8 +10,6 @@ date_default_timezone_set('America/New_York');
 
 <!-- Bootstrap -->
 <link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/bootstrap-datepicker3.min.css" rel="stylesheet">
-<link href="css/bootstrap-clockpicker.min.css" rel="stylesheet">
 <link href="css/nouislider.min.css" rel="stylesheet">
 <link href="css/style.css" rel="stylesheet">
 <link href="favicon.ico" rel="icon" type="image/x-icon">

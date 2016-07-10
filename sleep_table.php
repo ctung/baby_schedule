@@ -21,7 +21,7 @@ try {
 
     $sth = $dbh->prepare("SELECT name, ROUND(SUM(qnty),1) sum, DATE(DATE_ADD(start, INTERVAL 6 hour)) date FROM event
                           INNER JOIN baby USING (bid) INNER JOIN type USING (tid)
-                          WHERE type='sleep' GROUP BY name,date ORDER BY date DESC LIMIT 7");
+                          WHERE type='sleep' GROUP BY name,date ORDER BY date DESC LIMIT 14");
     $sth->execute();
     while($row = $sth->fetch()) 
 	$daily[$row['date']][$row['name']] = $row;
