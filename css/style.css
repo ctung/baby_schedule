@@ -7,9 +7,18 @@ body.home {
     background-size:100% auto;
 }
 
+body {
+    background-color: black;
+    color: white;
+}
+
+input {
+    color: black;
+}
 
 td,th {
     padding: 5px;
+    color: white;
 }
 
 th.name {
