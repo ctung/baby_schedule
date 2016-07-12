@@ -9,8 +9,8 @@ try {
     $sth = $dbh->prepare("SELECT eid, name, qnty, qlty, location, TIME_FORMAT(start,'%h:%i %p') starttime FROM event
                                   INNER JOIN baby USING (bid) INNER JOIN type USING (tid) INNER JOIN location USING (lid)
                                   WHERE type='sleep' AND start BETWEEN :start AND :end ORDER BY start");
-    $endwindow = date('Y-m-d H:i:s',strtotime($date)+60*60*18-1);
-    $startwindow = date('Y-m-d H:i:s',strtotime($date)-60*60*6);
+    $endwindow = date('Y-m-d H:i:s',strtotime($date)+60*60*19-1);
+    $startwindow = date('Y-m-d H:i:s',strtotime($date)-60*60*5);
     $sth->bindParam(':start',$startwindow);
     $sth->bindParam(':end',$endwindow);
     $sth->execute();
@@ -19,7 +19,7 @@ try {
 	$totals[$row['name']] += $row['qnty'];
     }
 
-    $sth = $dbh->prepare("SELECT name, ROUND(SUM(qnty),1) sum, DATE(DATE_ADD(start, INTERVAL 6 hour)) date FROM event
+    $sth = $dbh->prepare("SELECT name, ROUND(SUM(qnty),1) sum, DATE(DATE_ADD(start, INTERVAL 5 hour)) date FROM event
                           INNER JOIN baby USING (bid) INNER JOIN type USING (tid)
                           WHERE type='sleep' GROUP BY name,date ORDER BY date DESC LIMIT 14");
     $sth->execute();
